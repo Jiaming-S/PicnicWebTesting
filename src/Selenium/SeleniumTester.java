@@ -54,7 +54,7 @@ public abstract class SeleniumTester {
 	protected void loadDiscoverPage(){
 		loadPage("https://picnic.zone/d");
 
-		// Wait until posts load
+		// Wait until circles load
 		waitUntilAppears(By.cssSelector(".card-row > discover-card"), 20);
 	}
 	
@@ -78,11 +78,10 @@ public abstract class SeleniumTester {
 			return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Problem with getting clipboard text");
+			System.out.println("Problem with getting clipboard text.");
 			return "";
 		} 
 	}
-
 
 	/**
 	 * Gets the n-th post from the homepage. 

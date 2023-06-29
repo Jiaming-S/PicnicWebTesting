@@ -5,6 +5,7 @@ import Logger.*;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 
 public class Main {
 	public static void main(String[] args) {
@@ -27,14 +28,16 @@ public class Main {
 			}
 		}
 
-		Logger.log("Tests concluded");
+		Logger.log("*** Tests concluded ***");
 		driver.quit();
 	}
 
 	private static void setup() {
-		System.out.println("-----");
+		Logger.log("*** --------------- ***");
 		Logger.log("Starting tests...");
 
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver_mac64/chromedriver");
+		System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true"); 
+		java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(java.util.logging.Level.OFF);
 	}
 }
