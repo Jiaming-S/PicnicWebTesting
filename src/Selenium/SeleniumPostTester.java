@@ -32,8 +32,7 @@ public class SeleniumPostTester extends SeleniumTester {
     WebElement shareButton = allButtons.get(2);
     shareButton.click();
 
-    WebElement shareLinkButton = shareButton
-        .findElement(By.cssSelector(".dropdown .scrollable-wrapper > div:first-child"));
+    WebElement shareLinkButton = shareButton.findElement(By.cssSelector(".dropdown .scrollable-wrapper > div:first-child"));
     shareLinkButton.click();
 
     Logger.log("Share link successful: " + getClipboardText());

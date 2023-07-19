@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Logger.Logger;
+
 public abstract class SeleniumTester {
 	protected WebDriver driver;
 	protected boolean windowIsOpen;
@@ -29,6 +31,7 @@ public abstract class SeleniumTester {
 	 * Opens a specified page. Refreshes the page if already open. 
 	 */
 	protected void loadPage (String URL) {
+		Logger.log("Loading page: " + URL);
 		if (windowIsOpen && driver.getCurrentUrl().equals(URL)){
 			driver.navigate().refresh();
 		}
@@ -62,11 +65,21 @@ public abstract class SeleniumTester {
 	 * Wait until a certain condition is met.
 	 * @param until On what condition to stop waiting.
 	 * @param seconds How long to wait before giving up.
+	 * @return resultant element based on query
 	 */
-	protected void waitUntilAppears (By until, int seconds){
+	protected WebElement waitUntilAppears (By until, int seconds){
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds)); 
 		wait.pollingEvery(Duration.ofMillis(100));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(until));
+		return driver.findElement(until);
+	}
+	
+	/**
+	 * Wait until the current page loads
+	 * @param seconds How long to wait before giving up.
+	 */
+	protected void waitUntilPageLoads (int seconds) {
+		waitUntilAppears(By.cssSelector("body"), seconds);
 	}
 	
 	/**
@@ -99,7 +112,7 @@ public abstract class SeleniumTester {
 	 * @return A List of WebElements containing the buttons: (like/dislike, comment, share, bookmark, flag)
 	 */
 	protected List<WebElement> getPostButtons (WebElement post) {
-		return post.findElements(By.cssSelector("post-actions div[_ngcontent-serverapp-c64] > div"));
+		return post.findElements(By.cssSelector("post-actions > div > div"));
 	}
 	
 	/**

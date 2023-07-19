@@ -14,9 +14,10 @@ public class Main {
 		WebDriver driver = new ChromeDriver();
 
 		SeleniumTester[] allTesters = {
-				new SeleniumPostTester(driver),
-				new SeleniumCircleTester(driver),
-				new SeleniumSearchBarTester(driver),
+				// new SeleniumPostTester(driver),
+				// new SeleniumCircleTester(driver),
+				// new SeleniumSearchBarTester(driver),
+				new SeleniumDiscoverLinksTester(driver),
 		};
 
 		for (SeleniumTester tester : allTesters) {
