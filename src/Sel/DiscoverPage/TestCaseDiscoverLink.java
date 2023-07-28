@@ -35,6 +35,7 @@ public class TestCaseDiscoverLink extends TestCase {
 			loadDiscoverPage();
 			
 			WebElement col = waitUntilAppears(By.cssSelector("app-main-page"), Constants.MAX_ELEMENT_LOAD_TIME);
+      shortWait();
 			List<WebElement> discoverCardRows = col.findElements(By.cssSelector("div.grid-container > .card-row"));
 			
 			WebElement curDiscoverCardRow = discoverCardRows.get(i);

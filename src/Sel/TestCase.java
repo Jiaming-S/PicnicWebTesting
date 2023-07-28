@@ -26,29 +26,48 @@ public abstract class TestCase {
 
   public abstract void runTest() throws TestCaseFailedException;
 
+  protected void shortWait () {
+    try { Thread.sleep(Constants.SHORT_WAIT_TIME); } catch (InterruptedException e) { e.printStackTrace(); }
+  }
 
 	/**
 	 * Opens a specified page. Refreshes the page if already open. 
 	 */
 	protected void loadPage (String URL) {
 		Logger.log("Loading page: " + URL);
-		if (windowIsOpen && driver.getCurrentUrl().equals(URL)){
-			driver.navigate().refresh();
-		}
-		else {
-			driver.get(URL);
-			windowIsOpen = true;
-		}
+
+    if (windowIsOpen && driver.getCurrentUrl().equals(URL)) {
+      driver.navigate().refresh();
+    } else {
+      driver.get(URL);
+      windowIsOpen = true;
+    }
 	}
 
   /**
 	 * Loads the homepage. 
 	 */
 	protected void loadHomePage() {
-		loadPage("https://picnic.zone/");
+    boolean loadSuccess = false;
+    int currentTryCount = 0;
 
-		// Wait until posts load
-		waitUntilAppears(By.cssSelector(".post-list > post-wrapper"), Constants.MAX_PAGE_LOAD_TIME);
+    while (!loadSuccess || currentTryCount > Constants.MAX_RELOAD_ATTEMPTS) {
+      try {
+        loadPage("https://picnic.zone/");
+
+        // Wait until posts load
+        waitUntilAppears(By.cssSelector(".post-list > post-wrapper"), Constants.MAX_PAGE_LOAD_TIME);
+        shortWait();
+
+        currentTryCount++;
+        loadSuccess = true;
+      } catch (Exception e) {
+        Logger.log("Loading homepage unsuccessful. Retrying...");
+        currentTryCount++;
+      }
+    }
+
+    if (!loadSuccess) Logger.log("Loading homepage unsuccessful. Max attempts exceeded.");
 	}
 
 	/**
