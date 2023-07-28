@@ -12,10 +12,21 @@ public class SeleniumDiscoverPageTester extends SeleniumTester {
 
 	@Override
 	public void runAll() {
-		try {
-			(new TestCaseDiscoverLink(driver)).runTest();
-		} catch (Exception e) {
-			Logger.log("Error running test case: " + e.getMessage());
+		int numFailedTests = 0;
+		TestCase allDiscoverPageTests[] = {
+			new TestCaseDiscoverLink(driver),
+		};
+
+		for (TestCase testCase : allDiscoverPageTests) {
+			try {
+				testCase.runTest();
+			} catch (TestCaseFailedException e) {
+				Logger.log("Error running test case: " + e.getMessage());
+				numFailedTests++;
+			}
 		}
+
+		System.out.println("Discover Page Testing Concluded.");
+		printResults(allDiscoverPageTests.length, numFailedTests);
 	}
 }
