@@ -1,4 +1,4 @@
-package Selenium;
+package Sel.DiscoverPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -9,21 +9,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Logger.Logger;
+import Log.*;
+import Sel.*;
 
-public class SeleniumDiscoverLinksTester extends SeleniumTester {
+public class TestCaseDiscoverLink extends TestCase {
 	private final int NUM_OF_TEST_LINKS = 3;
-	
-	public SeleniumDiscoverLinksTester(WebDriver driver) {
+
+  public TestCaseDiscoverLink(WebDriver driver) {
 		super(driver);
 	}
 
-	@Override
-	public void runAll() {
-		testDiscoverLinks();
-	}
-	
-	public void testDiscoverLinks () {
+  @Override
+  public void runTest() throws TestCaseFailedException {
+    try {
+      testDiscoverLinks();
+    } catch (Exception e) {
+      throw new TestCaseFailedException("Accessing circle links unsuccessful.\n" + e.getMessage() + "\n");
+    }
+  }
+
+  public void testDiscoverLinks () {
 		Logger.log("Testing access to discover page circle links...");
 		for (int i = 0; i < NUM_OF_TEST_LINKS; i++) {
 			loadDiscoverPage();

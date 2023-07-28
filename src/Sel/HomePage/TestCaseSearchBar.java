@@ -1,4 +1,4 @@
-package Selenium;
+package Sel.HomePage;
 
 import java.util.List;
 
@@ -6,23 +6,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import Logger.Logger;
+import Log.*;
+import Sel.*;
 
-public class SeleniumSearchBarTester extends SeleniumTester {
-  private final String[] WORD_LIST = { "test", "picnic" };
-
-  public SeleniumSearchBarTester(WebDriver driver) {
-    super(driver);
-  }
+public class TestCaseSearchBar extends TestCase{
+  public TestCaseSearchBar(WebDriver driver) {
+		super(driver);
+	}
 
   @Override
-  public void runAll() {
-    this.testHomePageSearchBar();
-    // this.testDiscoverSearchBar();
+  public void runTest() throws TestCaseFailedException {
+    try {
+      testHomePageSearchBar();
+    } catch (Exception e) {
+      throw new TestCaseFailedException("Homepage search unsuccessful.\n" + e.getMessage() + "\n");
+    }
   }
 
   public void testHomePageSearchBar() {
     Logger.log("Testing homepage search bar...");
+    final String[] WORD_LIST = { "test", "picnic" };
     loadHomePage();
 
     WebElement searchBar;
@@ -52,39 +55,7 @@ public class SeleniumSearchBarTester extends SeleniumTester {
 
     Logger.log("Homepage search successful.");
   }
-
-  public void testDiscoverSearchBar() {
-    Logger.log("Testing discover page search bar...");
-    loadDiscoverPage();
-
-    WebElement searchBar;
-    for (String word : WORD_LIST) {
-      Logger.log("Searching for: \"" + word + "\"...");
-
-      searchBar = driver.findElement(By.cssSelector(".hero-container input"));
-      searchBar.sendKeys(word);
-      waitUntilAppears(By.cssSelector(".result-container"), 10);
-
-      List<WebElement> circleResults = driver.findElements(By.cssSelector(".hero-container .result-container"));
-      WebElement randomCircle = circleResults.get((int)(Math.random() * circleResults.size()));
-      testCircleDropdownLink(randomCircle);
-      loadDiscoverPage();
-
-      searchBar = driver.findElement(By.cssSelector(".hero-container input"));
-      searchBar.sendKeys(word);
-      waitUntilAppears(By.cssSelector(".result-container"), 10);
-
-      List<WebElement> userResults = driver.findElements(By.cssSelector(".hero-container .info-container"));
-      WebElement randomUser = userResults.get((int)(Math.random() * userResults.size()));
-      testUserDropdownLink(randomUser);
-      loadDiscoverPage();
-
-      Logger.log("Results for \"" + word + "\": " + circleResults.size() + " circles, " + userResults.size() + " users");
-    }
-
-    Logger.log("Discover page search successful.");
-  }
-
+  
   /**
 	 * Tests a search dropdown that opens a link to a circle.
 	 * @param linkButton WebElement containing the button to be tested.
@@ -98,7 +69,6 @@ public class SeleniumSearchBarTester extends SeleniumTester {
 
     Logger.log("Opened circle.");
 	}
-
   /**
 	 * Tests a search dropdown that opens a link to a user profile.
 	 * @param linkButton WebElement containing the button to be tested. 

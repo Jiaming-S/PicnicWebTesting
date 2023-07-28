@@ -1,11 +1,14 @@
 package Main;
 
-import Selenium.*;
-import Logger.*;
+import Sel.*;
+import Sel.DiscoverPage.SeleniumDiscoverPageTester;
+import Sel.HomePage.SeleniumHomePageTester;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+
+import Log.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -14,20 +17,11 @@ public class Main {
 		WebDriver driver = new ChromeDriver();
 
 		SeleniumTester[] allTesters = {
-				// new SeleniumPostTester(driver),
-				// new SeleniumCircleTester(driver),
-				// new SeleniumSearchBarTester(driver),
-				new SeleniumDiscoverLinksTester(driver),
+			new SeleniumHomePageTester(driver),
+			new SeleniumDiscoverPageTester(driver),
 		};
 
-		for (SeleniumTester tester : allTesters) {
-			try {
-				tester.runAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-				Logger.log("An exception has occured. Test unsuccessful.");
-			}
-		}
+		for (SeleniumTester tester : allTesters) tester.runAll();
 
 		Logger.log("*** Tests concluded ***");
 		driver.quit();

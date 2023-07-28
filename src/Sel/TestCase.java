@@ -1,4 +1,4 @@
-package Selenium;
+package Sel;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -11,22 +11,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Logger.Logger;
+import Log.Logger;
 
-public abstract class SeleniumTester {
-	protected WebDriver driver;
-	protected boolean windowIsOpen;
-	
-	public SeleniumTester (WebDriver driver) {
-		this.driver = driver;
-		windowIsOpen = false;
-	}
+public abstract class TestCase {
+  protected WebDriver driver;
+  
+  private boolean windowIsOpen;
 
-	/**
-	 * Implementations should run all their respective tests. 
-	 */
-	public abstract void runAll ();
-	
+  public TestCase(WebDriver driver) {
+    this.driver = driver;
+    this.windowIsOpen = false;
+  }
+
+  public abstract void runTest() throws TestCaseFailedException;
+
+
 	/**
 	 * Opens a specified page. Refreshes the page if already open. 
 	 */
@@ -41,7 +40,7 @@ public abstract class SeleniumTester {
 		}
 	}
 
-	/**
+  /**
 	 * Loads the homepage. 
 	 */
 	protected void loadHomePage() {
