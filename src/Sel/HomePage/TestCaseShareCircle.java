@@ -16,7 +16,7 @@ public class TestCaseShareCircle extends TestCase{
     try {
       testShareCircle();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Share first circle unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Share first circle unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 

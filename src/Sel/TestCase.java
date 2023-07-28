@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Log.Logger;
+import Main.Constants;
 
 public abstract class TestCase {
   protected WebDriver driver;
@@ -47,7 +48,7 @@ public abstract class TestCase {
 		loadPage("https://picnic.zone/");
 
 		// Wait until posts load
-		waitUntilAppears(By.cssSelector(".post-list > post-wrapper"), 20);
+		waitUntilAppears(By.cssSelector(".post-list > post-wrapper"), Constants.MAX_PAGE_LOAD_TIME);
 	}
 
 	/**
@@ -57,17 +58,17 @@ public abstract class TestCase {
 		loadPage("https://picnic.zone/d");
 
 		// Wait until circles load
-		waitUntilAppears(By.cssSelector(".card-row > discover-card"), 20);
+		waitUntilAppears(By.cssSelector(".card-row > discover-card"), Constants.MAX_PAGE_LOAD_TIME);
 	}
 	
 	/**
 	 * Wait until a certain condition is met.
 	 * @param until On what condition to stop waiting.
-	 * @param seconds How long to wait before giving up.
+	 * @param time How long to wait before giving up.
 	 * @return resultant element based on query
 	 */
-	protected WebElement waitUntilAppears (By until, int seconds){
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds)); 
+	protected WebElement waitUntilAppears (By until, Duration time){
+		WebDriverWait wait = new WebDriverWait(driver, time); 
 		wait.pollingEvery(Duration.ofMillis(100));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(until));
 		return driver.findElement(until);
@@ -78,7 +79,7 @@ public abstract class TestCase {
 	 * @param seconds How long to wait before giving up.
 	 */
 	protected void waitUntilPageLoads (int seconds) {
-		waitUntilAppears(By.cssSelector("body"), seconds);
+		waitUntilAppears(By.cssSelector("body"), Constants.MAX_PAGE_LOAD_TIME);
 	}
 	
 	/**

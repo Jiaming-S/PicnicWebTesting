@@ -16,7 +16,7 @@ public class TestCaseSharePostAuthor extends TestCase{
     try {
       testShareProfile();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Share post author unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Share post author unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 

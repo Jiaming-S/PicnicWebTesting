@@ -19,7 +19,7 @@ public class TestCaseSharePostEmbed extends TestCase{
     try {
       testShareEmbed();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Share embed unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Share embed unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 

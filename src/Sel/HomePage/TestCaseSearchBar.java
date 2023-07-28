@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import Log.*;
+import Main.Constants;
 import Sel.*;
 
 public class TestCaseSearchBar extends TestCase{
@@ -19,7 +20,7 @@ public class TestCaseSearchBar extends TestCase{
     try {
       testHomePageSearchBar();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Homepage search unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Homepage search unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 
@@ -34,7 +35,7 @@ public class TestCaseSearchBar extends TestCase{
 
       searchBar = driver.findElement(By.cssSelector(".search-desktop-container input"));
       searchBar.sendKeys(word);
-      waitUntilAppears(By.cssSelector(".result-container"), 10);
+      waitUntilAppears(By.cssSelector(".result-container"), Constants.MAX_ELEMENT_LOAD_TIME);
 
       List<WebElement> circleResults = driver.findElements(By.cssSelector(".search-desktop-container .dropdown-item > .result-container .data-container"));
       WebElement randomCircle = circleResults.get((int)(Math.random() * circleResults.size()));
@@ -43,7 +44,7 @@ public class TestCaseSearchBar extends TestCase{
 
       searchBar = driver.findElement(By.cssSelector(".search-desktop-container input"));
       searchBar.sendKeys(word);
-      waitUntilAppears(By.cssSelector(".result-container"), 10);
+      waitUntilAppears(By.cssSelector(".result-container"), Constants.MAX_ELEMENT_LOAD_TIME);
 
       List<WebElement> userResults = driver.findElements(By.cssSelector(".search-desktop-container .dropdown-item > .info-container .data-container"));
       WebElement randomUser = userResults.get((int)(Math.random() * userResults.size()));
@@ -65,7 +66,7 @@ public class TestCaseSearchBar extends TestCase{
     Logger.log("Attempting to open random circle: \"" + target + "\"...");
 		linkButton.click();
 
-		waitUntilAppears(By.cssSelector("body"), 10);
+		waitUntilAppears(By.cssSelector("body"), Constants.MAX_PAGE_LOAD_TIME);
 
     Logger.log("Opened circle.");
 	}
@@ -78,7 +79,7 @@ public class TestCaseSearchBar extends TestCase{
     Logger.log("Attempting to open random user profile: \"" + target + "\"...");
 		linkButton.click();
 
-		waitUntilAppears(By.cssSelector("body"), 10);
+		waitUntilAppears(By.cssSelector("body"), Constants.MAX_PAGE_LOAD_TIME);
 
     Logger.log("Opened user profile.");
 	}

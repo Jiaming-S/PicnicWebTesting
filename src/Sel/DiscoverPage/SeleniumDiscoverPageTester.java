@@ -2,8 +2,8 @@ package Sel.DiscoverPage;
 
 import org.openqa.selenium.WebDriver;
 
-import Log.Logger;
-import Sel.SeleniumTester;
+import Log.*;
+import Sel.*;
 
 public class SeleniumDiscoverPageTester extends SeleniumTester {
 	public SeleniumDiscoverPageTester(WebDriver driver) {

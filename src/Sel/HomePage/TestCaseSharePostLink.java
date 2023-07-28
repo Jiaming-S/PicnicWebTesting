@@ -19,7 +19,7 @@ public class TestCaseSharePostLink extends TestCase{
     try {
       testShareLink();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Share post link unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Share post link unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Log.*;
+import Main.Constants;
 import Sel.*;
 
 public class TestCaseDiscoverLink extends TestCase {
@@ -24,7 +25,7 @@ public class TestCaseDiscoverLink extends TestCase {
     try {
       testDiscoverLinks();
     } catch (Exception e) {
-      throw new TestCaseFailedException("Accessing circle links unsuccessful.\n" + e.getMessage() + "\n");
+      throw new TestCaseFailedException("Accessing circle links unsuccessful.\n" + e.getMessage() + "\n", e.getStackTrace());
     }
   }
 
@@ -33,7 +34,7 @@ public class TestCaseDiscoverLink extends TestCase {
 		for (int i = 0; i < NUM_OF_TEST_LINKS; i++) {
 			loadDiscoverPage();
 			
-			WebElement col = waitUntilAppears(By.cssSelector("app-main-page"), 4);
+			WebElement col = waitUntilAppears(By.cssSelector("app-main-page"), Constants.MAX_ELEMENT_LOAD_TIME);
 			List<WebElement> discoverCardRows = col.findElements(By.cssSelector("div.grid-container > .card-row"));
 			
 			WebElement curDiscoverCardRow = discoverCardRows.get(i);
