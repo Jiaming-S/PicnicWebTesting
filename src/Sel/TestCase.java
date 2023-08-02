@@ -71,6 +71,32 @@ public abstract class TestCase {
 	}
 
 	/**
+	 * Loads the homepage from dev server. 
+	 */
+	protected void loadHomePageDev (){
+		loadPage("https://stg.picnic.zone");
+		waitUntilAppears(By.cssSelector(".post-list > post-wrapper"), Constants.MAX_PAGE_LOAD_TIME);
+		shortWait();
+	}
+
+	/**
+	 * Signs into dev server.
+	 */
+	protected void signInDev (WebDriver driver){
+		WebElement signInButton = driver.findElement(By.cssSelector("picnic-button[ng-reflect-label='sign in'].d-sm-block"));
+		signInButton.click();
+
+		waitUntilAppears(By.cssSelector(".bottom-container picnic-button"), Constants.MAX_PAGE_LOAD_TIME);
+		shortWait();
+		WebElement logInButton = driver.findElement(By.cssSelector(".bottom-container picnic-text-button"));
+		logInButton.click();
+
+		shortWait();
+		
+
+	}
+
+	/**
 	 * Loads the discover page. 
 	 */
 	protected void loadDiscoverPage(){

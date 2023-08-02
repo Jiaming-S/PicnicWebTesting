@@ -3,6 +3,7 @@ package Main;
 import Sel.*;
 import Sel.DiscoverPage.SeleniumDiscoverPageTester;
 import Sel.HomePage.SeleniumHomePageTester;
+import Sel.HomePage.SeleniumHomePageTesterDev;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,8 +18,9 @@ public class Main {
 		WebDriver driver = new ChromeDriver();
 
 		SeleniumTester[] allTesters = {
-			new SeleniumHomePageTester(driver),
-			new SeleniumDiscoverPageTester(driver),
+			// new SeleniumHomePageTester(driver),
+			new SeleniumHomePageTesterDev(driver),
+			// new SeleniumDiscoverPageTester(driver),
 		};
 
 		for (SeleniumTester tester : allTesters) tester.runAll();
